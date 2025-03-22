@@ -16,6 +16,7 @@ use MoonShine\UI\Fields\ID;
 use MoonShine\Contracts\UI\FieldContract;
 use MoonShine\Contracts\UI\ComponentContract;
 use MoonShine\UI\Fields\Image as ImageField;
+use MoonShine\UI\Fields\Text;
 
 /**
  * @extends ModelResource<Image>
@@ -34,11 +35,7 @@ class ImageResource extends ModelResource
         return [
             ID::make()->sortable(),
             ImageField::make('path'),
-            MorphTo::make('Imageable', 'imageable', fn($item)=>$item->id . '. ' . $item->name)
-                ->types([
-                    Category::class => ['Categories', 'Categories'],
-                    Product::class => ['Product', 'Product']
-                ])
+            Text::make('Imageable', 'imageable.name'),
         ];
     }
 
@@ -68,11 +65,7 @@ class ImageResource extends ModelResource
         return [
             ID::make(),
             ImageField::make('path'),
-            MorphTo::make('Imageable', 'imageable', fn($item)=>$item->id . '. ' . $item->name)
-                ->types([
-                    Category::class => ['Categories', 'Categories'],
-                    Product::class => ['Product', 'Product']
-                ])
+            Text::make('Imageable', 'imageable.name'),
         ];
     }
 
