@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Banner;
 use App\Models\Category;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -36,12 +37,19 @@ class HomeController extends Controller
                 ->with(['images', 'parent'])
                     ->get();
 
+        $latestPosts = Post::query()
+            ->orderBy('id', 'DESC')
+                ->with('postCategory')
+                    ->limit(10)
+                        ->get();
+
         return view('home', [
             'top_banners' => $top_banners,
             'middleBanner' => $middleBanner,
             'adsBanners' => $adsBanners,
             'bottomBanner' => $bottomBanner,
             'categories' => $categories,
+            'latestPosts' => $latestPosts,
         ]);
     }
 
